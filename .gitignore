@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+templates/baller
+.env.local
+.dfx
+yarn.lock
+package-lock.json
