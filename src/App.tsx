@@ -6,13 +6,13 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import "./assets/styles/main.scss";
-import templates from "./data/base_models.json";
 import { PlugWallet } from './ic/PlugWallet';
-import "./ic/style.scss";
-import avatarcreator from "avatarcreator";
+import { Mint } from "./ic/Mint";
+import CharacterEditor from "./components/index";
+import { sceneService } from "./services/scene";
+import defaultTemplates from "./data/base_models";
 
-const {CharacterEditor, sceneService } = avatarcreator;
+import "./ic/style.scss";
 
 const theme = createTheme({
   palette: {
@@ -49,7 +49,7 @@ export default function ICApp() {
 
   const [glb, setGLB] = useState(null);
   const [screenshot, setScreenshot] = useState(null);
-  const [mintTraits, setMintTraits] = useState({hair: null, face: null, tops: null, arms: null, legs: null, shoes: null})
+  const [mintTraits, setMintTraits] = useState({ hair: null, face: null, tops: null, arms: null, legs: null, shoes: null })
   const [mintScene, setMintScene] = useState(null)
   const [PreviewCanvas, setPreviewCanvas] = useState(null)
 
@@ -155,12 +155,14 @@ export default function ICApp() {
 
   return (
     <>
-    <CharacterEditor templates={templates} theme={theme} setMintTraits={setMintTraits} setMintScene={setMintScene} setPreviewCanvas={setPreviewCanvas}/>
+      <CharacterEditor theme={theme} templates={defaultTemplates} setMintTraits={setMintTraits} setMintScene={setMintScene} setPreviewCanvas={setPreviewCanvas} />
       <div className="connect-mint-wrap">
-      <PlugWallet
-        onConnect={handleConnect}
-        onFail={handleFail}
-      />
+        <PlugWallet
+          onConnect={handleConnect}
+          onFail={handleFail}
+        >
+          <Mint />
+        </PlugWallet>
 
         {connected &&
           <React.Fragment>

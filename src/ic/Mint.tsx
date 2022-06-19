@@ -12,15 +12,20 @@ export function Mint() {
     await (window as any).ic.plug.createAgent({whitelist});
     const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
     let tokenIndex = await plugActor.totalSupply();
-    tokenIndex = Number(await tokenIndex.toString().slice(0, 1));
-    return tokenIndex + 1;
+    console.log("tokenIndex is", tokenIndex)
+    // tokenIndex is a BigInt
+    // add 1 to it and return it
+    // convert token index to a string and remove the last character
+    tokenIndex = tokenIndex.toString();
+    console.log("tokenIndex is", tokenIndex);
+    const finalNumber = Number(tokenIndex) + 1;
+    return finalNumber;
   }
 
   const mintNFT = async() => {
-    var canisterId = cipherCanister;
+    const canisterId = cipherCanister;
     const principal = await (window as any).ic.plug.agent.getPrincipal();
     const tokenIndex = await checkIndex();
-    const whitelist = [canisterId];
     await (window as any).ic.plug.createAgent({whitelist});
     const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
     const properties = [
@@ -37,6 +42,9 @@ export function Mint() {
         }
       ]
     ];
+    console.log("principal is", principal);
+    console.log("tokenIndex is", tokenIndex);
+    console.log("properties", properties)
     const mintResult = await plugActor.mint(principal, tokenIndex, properties);
     console.log(mintResult);
   }
