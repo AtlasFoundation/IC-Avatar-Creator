@@ -2,7 +2,7 @@ import React from "react"
 import './dabStuff.css';
 import dip721v2_idl from '@psychedelic/dab-js/dist/idls/dip_721_v2.did';
 import { sceneService } from "../services";
-import * as assetIDL from './interfaces/old/index';
+import * as assetIDL from './interfaces/motokoStorage/src/declarations/storage_assets';
 
 export function Mint({onSuccess}) {
 
