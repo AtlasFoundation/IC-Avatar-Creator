@@ -7,8 +7,8 @@ import * as assetIDL from './interfaces/index';
 export function Mint({onSuccess}) {
 
   const cipherCanister = "6hgw2-nyaaa-aaaai-abkqq-cai"
-  const dansAssets = "qgh4x-kyaaa-aaaaj-afk5q-cai"
-  const whitelist = [cipherCanister, dansAssets];
+  const cipherAssets = "f2cug-hyaaa-aaaah-abkdq-cai"
+  const whitelist = [cipherCanister, cipherAssets];
 
   const checkIndex = async() => {
     const canisterId = cipherCanister;
@@ -31,7 +31,7 @@ export function Mint({onSuccess}) {
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({whitelist});
     const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
-    const storageActor = await (window as any).ic.plug.createActor({canisterId: dansAssets, interfaceFactory: assetIDL.idlFactory});
+    const storageActor = await (window as any).ic.plug.createActor({canisterId: cipherAssets, interfaceFactory: assetIDL.idlFactory});
     const image = await sceneService.getScreenShot();
 
     const model = await sceneService.getModelFromScene("glb");
@@ -39,8 +39,8 @@ export function Mint({onSuccess}) {
     const {hair, face, tops, arms, shoes, legs}: any = sceneService.getTraits();
 
     // TODO: Upload glb in chunks
-    const previewImgUrl = "https://qgh4x-kyaaa-aaaaj-afk5q-cai.raw.ic0.app/2/preview.jpg"; // TODO
-    const modelUrl = "https://qgh4x-kyaaa-aaaaj-afk5q-cai.raw.ic0.app/2/preview.jpg"; // TODO=
+    const previewImgUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/2/preview.jpg"; // TODO
+    const modelUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/2/preview.jpg"; // TODO=
 
     const createChunkDefault = async ({batch_id, chunk}) => storageActor.create_chunk({
       batch_id,
@@ -52,21 +52,24 @@ export function Mint({onSuccess}) {
     
       const promises = [];
       const chunkSize = 700000;
+      console.log(image.size)
       for (let start = 0; start < image.size; start += chunkSize) {
         const chunk = image.slice(start, start + chunkSize);
         promises.push(createChunkDefault({
           batch_id,
           chunk
         }));
+        console.log(chunk);
       }
     
       const chunkIds = await Promise.all(promises);
       console.log(chunkIds);
     
-      await storageActor.commit_batch({
+      const someResponse = await storageActor.commit_batch({
         batch_id,
         operations: [{'CreateAsset': {key: 'thumbnail', content_type: image.type}}],
       })
+      console.log(someResponse);
     }
     {
       const {batch_id} = await storageActor.create_batch({});
@@ -84,10 +87,11 @@ export function Mint({onSuccess}) {
       const chunkIds = await Promise.all(promises);
       console.log(chunkIds);
     
-      await storageActor.commit_batch({
+      const storageResponse = await storageActor.commit_batch({
         batch_id,
         operations: [{'CreateAsset': {key: 'model', content_type: (model as Blob).type}}],
       })
+      console.log(storageResponse);
     }
 
         // opensea metadata format
@@ -144,9 +148,9 @@ export function Mint({onSuccess}) {
         console.log("tokenIndex is", tokenIndex);
         console.log("properties", properties)
     
-    const mintResult = await plugActor.mint(principal, tokenIndex, properties);
-    if(onSuccess) onSuccess(mintResult);
-    console.log(mintResult);
+    // const mintResult = await plugActor.mint(principal, tokenIndex, properties);
+    // if(onSuccess) onSuccess(mintResult);
+    // console.log(mintResult);
   }
 
   return (
