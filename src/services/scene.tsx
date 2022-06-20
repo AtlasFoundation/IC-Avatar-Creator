@@ -7,23 +7,27 @@ import html2canvas from "html2canvas";
 import { VRM } from "@pixiv/three-vrm";
 import VRMExporter from "../library/VRM/VRMExporter";
 // import VRMExporter from "../library/VRM/vrm-exporter";
-export const sceneService = {
-  loadModel,
-  updatePose,
-  updateMorphValue,
-  getMorphValue,
-  download,
-  getMesh,
-  setMaterialColor,
-  getObjectValue,
-  saveScreenShotByElementId,
-  getScreenShot,
-  getScreenShotByElementId,
-  getModelFromScene
-};
 
-async function getModelFromScene(scene: any, format: any) {
-  if (format && format === 'gltf/glb') {
+function getArrayBuffer (buffer) { return new Blob([buffer], { type: "application/octet-stream" }); }
+
+let scene = null;
+
+const setScene = (newScene: any) => {
+  scene = newScene;
+}
+
+const getScene = () => scene;
+
+let traits = {};
+
+const setTraits = (newTraits: any) => {
+  scene = newTraits;
+}
+
+const getTraits = () => traits;
+
+async function getModelFromScene(format = 'glb') {
+  if (format && format === 'glb') {
     const exporter = new GLTFExporter()
     var options = {
       trs: false,
@@ -35,10 +39,16 @@ async function getModelFromScene(scene: any, format: any) {
     }
     const glb: any = await new Promise((resolve) => exporter.parse(scene, resolve, (error) => console.error("Error getting model"), options))
     return new Blob([glb], { type: 'model/gltf-binary' })
+  } else if (format && format === 'vrm') {
+    const exporter = new VRMExporter();
+    const vrm: any = await new Promise((resolve) => exporter.parse(scene, resolve))
+    return new Blob([vrm], { type: 'model/gltf-binary' })
+  } else {
+    return console.error("Invalid format");
   }
 }
 async function getScreenShot() {
-  return await getScreenShotByElementId("mint-screenshot-canvas-wrap")
+  return await getScreenShotByElementId("editor-scene")
 }
 
 async function getScreenShotByElementId(id) {
@@ -83,32 +93,6 @@ async function getObjectValue(target: any, scene: any, value: any) {
   }
 }
 
-function createTextCanvas(text) {
-  var canvas = document.createElement("canvas");
-  var context: any = canvas.getContext("2d");
-
-  context.font = 11 + "px Arial";
-
-  context.textAlign = "center";
-  context.textBaseline = "middle";
-  context.fillStyle = "#a22813";
-  context.font = 18 + "px  Arial";
-  context.miterLimit = 5;
-  context.lineWidth = 3;
-  context.strokeStyle = "white";
-  context.strokeText(text, 45, 130);
-  context.fillStyle = "red";
-  context.fillText(text, 45, 130);
-  context.clientWidth = 560;
-  context.clientHeight = 560;
-  context.background = "#FFFFFF";
-
-  var texture = new THREE.Texture(canvas);
-  texture.needsUpdate = true;
-  texture.flipY = false;
-  return texture;
-}
-
 async function getMesh(name: any, scene: any) {
   const object = scene.getObjectByName(name);
   return object;
@@ -126,7 +110,7 @@ async function setMaterialColor(scene: any, value: any, target: any) {
 }
 
 async function loadModel(file: any, type: any) {
-  if (type && type === "gltf/glb" && file) {
+  if (type && type === "glb" && file) {
     const loader = new GLTFLoader();
     return loader.loadAsync(file, (e) => {
       console.log(e.loaded)
@@ -216,10 +200,7 @@ async function download(
   }
 
   function saveArrayBuffer(buffer, filename) {
-    save(new Blob([buffer], { type: "application/octet-stream" }), filename);
-  }
-  function saveArrayBufferVRM(vrm, filename) {
-    save(new Blob([vrm], { type: "octet/stream" }), filename);
+    save(getArrayBuffer(buffer), filename);
   }
 
   // Specifying the name of the downloadable model
@@ -227,7 +208,7 @@ async function download(
     fileName && fileName !== "" ? fileName : "AvatarCreatorModel"
   }`;
 
-  if (format && format === "gltf/glb") {
+  if (format && format === "glb") {
     const exporter = new GLTFExporter();
     var options = {
       trs: false,
@@ -257,7 +238,26 @@ async function download(
   } else if (format && format === "vrm") {
     const exporter = new VRMExporter();
     exporter.parse(model, (vrm : ArrayBuffer) => {
-      saveArrayBufferVRM(vrm, `${downloadFileName}.vrm`);
+      saveArrayBuffer(vrm, `${downloadFileName}.vrm`);
     });
   }
 }
+
+export const sceneService = {
+  loadModel,
+  updatePose,
+  updateMorphValue,
+  getMorphValue,
+  download,
+  getMesh,
+  setMaterialColor,
+  getObjectValue,
+  saveScreenShotByElementId,
+  getScreenShot,
+  getScreenShotByElementId,
+  getModelFromScene,
+  setScene,
+  getScene,
+  getTraits,
+  setTraits
+};

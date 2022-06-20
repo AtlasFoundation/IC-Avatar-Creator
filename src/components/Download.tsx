@@ -75,7 +75,7 @@ export default function DownloadCharacter({ scene, templateInfo, model, download
         <Box sx={{ ...style, border: 0 }}>
         <Button onClick={handleClose} sx={closePopup}><CloseIcon /></Button>
         <Button onClick={() => downloadModel('vrm')}>Download VRM</Button>
-        <Button onClick={() => downloadModel('gltf/glb')}>Download GLB</Button>
+        <Button onClick={() => downloadModel('glb')}>Download GLB</Button>
           <Button onClick={() => saveScreenshot('screenshot-canvas-wrap')}>Screenshot</Button>
         <div
         id="screenshot-canvas-wrap"

@@ -52,54 +52,6 @@ export default [
                 "thumbnail": "/hair/Hair_14/Isometric.png"
             },
             {
-                "id": "uid-h15",
-                "name": "Hair 15",
-                "directory": "/hair/Hair_15.vrm",
-                "thumbnail": "/hair/Hair_15/Isometric.png"
-            },
-            {
-                "id": "uid-h16",
-                "name": "Hair 16",
-                "directory": "/hair/Hair_16.vrm",
-                "thumbnail": "/hair/Hair_16/Isometric.png"
-            },
-            {
-                "id": "uid-h17",
-                "name": "Hair 17",
-                "directory": "/hair/Hair_17.vrm",
-                "thumbnail": "/hair/Hair_17/Isometric.png"
-            },
-            {
-                "id": "uid-h18",
-                "name": "Hair 18",
-                "directory": "/hair/Hair_18.vrm",
-                "thumbnail": "/hair/Hair_18/Isometric.png"
-            },
-            {
-                "id": "uid-h19",
-                "name": "Hair 19",
-                "directory": "/hair/Hair_19.vrm",
-                "thumbnail": "/hair/Hair_19/Isometric.png"
-            },
-            {
-                "id": "uid-h20",
-                "name": "Hair 20",
-                "directory": "/hair/Hair_20.vrm",
-                "thumbnail": "/hair/Hair_20/Isometric.png"
-            },
-            {
-                "id": "uid-h21",
-                "name": "Hair 21",
-                "directory": "/hair/Hair_21.vrm",
-                "thumbnail": "/hair/Hair_21/Isometric.png"
-            },
-            {
-                "id": "uid-h22",
-                "name": "Hair 22",
-                "directory": "/hair/Hair_22.vrm",
-                "thumbnail": "/hair/Hair_22/Isometric.png"
-            },
-            {
                 "id": "uid-h23",
                 "name": "Hair 23",
                 "directory": "/hair/Hair_23.vrm",
@@ -146,30 +98,6 @@ export default [
                 "name": "Hair 30",
                 "directory": "/hair/Hair_30.vrm",
                 "thumbnail": "/hair/Hair_30/Isometric.png"
-            },
-            {
-                "id": "uid-h31",
-                "name": "Hair 31",
-                "directory": "/hair/Hair_31.vrm",
-                "thumbnail": "/hair/Hair_31/Isometric.png"
-            },
-            {
-                "id": "uid-h32",
-                "name": "Hair 32",
-                "directory": "/hair/Hair_32.vrm",
-                "thumbnail": "/hair/Hair_32/Isometric.png"
-            },
-            {
-                "id": "uid-h33",
-                "name": "Hair 33",
-                "directory": "/hair/Hair_33.vrm",
-                "thumbnail": "/hair/Hair_33/Isometric.png"
-            },
-            {
-                "id": "uid-h34",
-                "name": "Hair 34",
-                "directory": "/hair/Hair_34.vrm",
-                "thumbnail": "/hair/Hair_34/Isometric.png"
             }
         ]
     },
@@ -194,18 +122,6 @@ export default [
                 "name": "Face 14",
                 "directory": "/face/Face_14.vrm",
                 "thumbnail": "/face/Face_14/Isometric.png"
-            },
-            {
-                "id": "uid-f16",
-                "name": "Face 16",
-                "directory": "/face/Face_16.vrm",
-                "thumbnail": "/face/Face_16/Isometric.png"
-            },
-            {
-                "id": "uid-f17",
-                "name": "Face 17",
-                "directory": "/face/Face_17.vrm",
-                "thumbnail": "/face/Face_17/Isometric.png"
             }
         ]
     },
@@ -220,28 +136,16 @@ export default [
                 "thumbnail": "/tops/Tops_1/Isometric.png"
             },
             {
-                "id": "uid-t14",
-                "name": "Tops 14",
-                "directory": "/tops/Tops_14.vrm",
-                "thumbnail": "/tops/Tops_14/Isometric.png"
+                "id": "uid-t2",
+                "name": "Tops 2",
+                "directory": "/tops/Tops_2.vrm",
+                "thumbnail": "/tops/Tops_2/Isometric.png"
             },
             {
                 "id": "uid-t15",
                 "name": "Tops 15",
                 "directory": "/tops/Tops_15.vrm",
                 "thumbnail": "/tops/Tops_15/Isometric.png"
-            },
-            {
-                "id": "uid-t16",
-                "name": "Tops 16",
-                "directory": "/tops/Tops_16.vrm",
-                "thumbnail": "/tops/Tops_16/Isometric.png"
-            },
-            {
-                "id": "uid-t17",
-                "name": "Tops 17",
-                "directory": "/tops/Tops_17.vrm",
-                "thumbnail": "/tops/Tops_17/Isometric.png"
             }
         ]
     },
@@ -260,12 +164,6 @@ export default [
                 "name": "Arms 2",
                 "directory": "/arms/Arms_2.vrm",
                 "thumbnail": "/arms/Arms_2/Isometric.png"
-            },
-            {
-                "id": "uid-a21",
-                "name": "Arms 21",
-                "directory": "/arms/Arms_21.vrm",
-                "thumbnail": "/arms/Arms_21/Isometric.png"
             }
         ]
     },
@@ -284,12 +182,6 @@ export default [
                 "name": "Shoes 14",
                 "directory": "/shoes/Shoes_14.vrm",
                 "thumbnail": "/shoes/Shoes_14/Isometric.png"
-            },
-            {
-                "id": "uid-s15",
-                "name": "Shoes 15",
-                "directory": "/shoes/Shoes_15.vrm",
-                "thumbnail": "/shoes/Shoes_15/Isometric.png"
             },
             {
                 "id": "uid-s16",
@@ -314,12 +206,6 @@ export default [
                 "name": "Legs 15",
                 "directory": "/legs/Legs_15.vrm",
                 "thumbnail": "/legs/Legs_15/Isometric.png"
-            },
-            {
-                "id": "uid-l20",
-                "name": "Legs 20",
-                "directory": "/legs/Legs_20.vrm",
-                "thumbnail": "/legs/Legs_20/Isometric.png"
             },
             {
                 "id": "uid-l21",

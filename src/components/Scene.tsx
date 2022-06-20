@@ -1,10 +1,11 @@
 import { PerspectiveCamera } from "@react-three/drei/core/PerspectiveCamera";
 import { OrbitControls } from "@react-three/drei/core/OrbitControls";
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+import React, { useEffect } from "react";
 import Editor from "./Editor";
 import { TemplateModel } from "./Models";
 import Selector from "./Selector";
+import { sceneService } from "../services";
 
 export default function Scene(props: any) {
   const { 
@@ -33,6 +34,12 @@ export default function Scene(props: any) {
     template,
     setTemplateInfo,
     templateInfo }: any = props;
+
+    useEffect(() => {
+      if(scene){
+        sceneService.setScene(scene);
+      }
+    }, [scene])
 
     const canvasWrap = {
       height: "100vh",
