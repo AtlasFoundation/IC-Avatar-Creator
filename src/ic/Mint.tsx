@@ -92,8 +92,8 @@ export function Mint({onSuccess}) {
 
         // opensea metadata format
         const metadata = {
-          name: import.meta.env.VITE_ASSET_NAME ?? "Avatars",
-          description: import.meta.env.VITE_ASSET_DESCRIPTION ?? "Custom avatars",
+          name: import.meta.env.VITE_ASSET_NAME ?? "Open Character Creator Avatar",
+          description: import.meta.env.VITE_ASSET_DESCRIPTION ?? "Custom 3D NFT Avatars",
           image: previewImgUrl,
           animation_url: modelUrl,
           attributes: [
