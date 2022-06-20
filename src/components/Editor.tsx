@@ -50,7 +50,7 @@ export default function Editor(props: any) {
           Skin Tone
         </div>
         <div onClick={() => setCategory('body')} style={ category && category === "body" ? selectorButton : selectorButtonActive }>
-          <Avatar style={selectorButtonIcon}  src={'/face.png'} />
+          <Avatar style={selectorButtonIcon}  src={'/body.png'} />
           <br />
           Body
         </div>
