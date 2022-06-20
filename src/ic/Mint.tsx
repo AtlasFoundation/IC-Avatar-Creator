@@ -2,11 +2,13 @@ import React from "react"
 import './dabStuff.css';
 import dip721v2_idl from '@psychedelic/dab-js/dist/idls/dip_721_v2.did';
 import { sceneService } from "../services";
+import * as assetIDL from './interfaces/index';
 
 export function Mint({onSuccess}) {
 
   const cipherCanister = "6hgw2-nyaaa-aaaai-abkqq-cai"
-  const whitelist = [cipherCanister];
+  const cipherAssets = "f2cug-hyaaa-aaaah-abkdq-cai"
+  const whitelist = [cipherCanister, cipherAssets];
 
   const checkIndex = async() => {
     const canisterId = cipherCanister;
@@ -19,7 +21,7 @@ export function Mint({onSuccess}) {
     // convert token index to a string and remove the last character
     tokenIndex = tokenIndex.toString();
     console.log("tokenIndex is", tokenIndex);
-    const finalNumber = Number(tokenIndex) + 3;
+    const finalNumber = Number(tokenIndex) + 1;
     return finalNumber;
   }
 
@@ -29,7 +31,7 @@ export function Mint({onSuccess}) {
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({whitelist});
     const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
-
+    const storageActor = await (window as any).ic.plug.createActor({cipherAssets, interfaceFactory: assetIDL.idlFactory});
     const image = await sceneService.getScreenShot();
 
     const model = await sceneService.getModelFromScene("glb");
@@ -40,13 +42,13 @@ export function Mint({onSuccess}) {
     const previewImgUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/0/preview.jpg"; // TODO
     const modelUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/0/preview.jpg"; // TODO=
 
-    const createChunkDefault = async ({batch_id, chunk}) => plugActor.create_chunk({
+    const createChunkDefault = async ({batch_id, chunk}) => storageActor.create_chunk({
       batch_id,
       content: [...new Uint8Array(await chunk.arrayBuffer())]
     })
 
     {
-      const {batch_id} = await plugActor.create_batch({});
+      const {batch_id} = await storageActor.create_batch({});
     
       const promises = [];
       const chunkSize = 700000;
@@ -61,13 +63,13 @@ export function Mint({onSuccess}) {
       const chunkIds = await Promise.all(promises);
       console.log(chunkIds);
     
-      await plugActor.commit_batch({
+      await storageActor.commit_batch({
         batch_id,
         operations: [{'CreateAsset': {key: 'thumbnail', content_type: image.type}}],
       })
     }
     {
-      const {batch_id} = await plugActor.create_batch({});
+      const {batch_id} = await storageActor.create_batch({});
     
       const promises = [];
       const chunkSize = 700000;
@@ -82,7 +84,7 @@ export function Mint({onSuccess}) {
       const chunkIds = await Promise.all(promises);
       console.log(chunkIds);
     
-      await plugActor.commit_batch({
+      await storageActor.commit_batch({
         batch_id,
         operations: [{'CreateAsset': {key: 'model', content_type: (model as Blob).type}}],
       })
