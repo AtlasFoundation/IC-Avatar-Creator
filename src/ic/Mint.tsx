@@ -7,8 +7,8 @@ import * as assetIDL from './interfaces/index';
 export function Mint({onSuccess}) {
 
   const cipherCanister = "6hgw2-nyaaa-aaaai-abkqq-cai"
-  const cipherAssets = "f2cug-hyaaa-aaaah-abkdq-cai"
-  const whitelist = [cipherCanister, cipherAssets];
+  const dansAssets = "qgh4x-kyaaa-aaaaj-afk5q-cai"
+  const whitelist = [cipherCanister, dansAssets];
 
   const checkIndex = async() => {
     const canisterId = cipherCanister;
@@ -31,7 +31,7 @@ export function Mint({onSuccess}) {
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({whitelist});
     const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
-    const storageActor = await (window as any).ic.plug.createActor({cipherAssets, interfaceFactory: assetIDL.idlFactory});
+    const storageActor = await (window as any).ic.plug.createActor({canisterId: dansAssets, interfaceFactory: assetIDL.idlFactory});
     const image = await sceneService.getScreenShot();
 
     const model = await sceneService.getModelFromScene("glb");
@@ -39,8 +39,8 @@ export function Mint({onSuccess}) {
     const {hair, face, tops, arms, shoes, legs}: any = sceneService.getTraits();
 
     // TODO: Upload glb in chunks
-    const previewImgUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/0/preview.jpg"; // TODO
-    const modelUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/0/preview.jpg"; // TODO=
+    const previewImgUrl = "https://qgh4x-kyaaa-aaaaj-afk5q-cai.raw.ic0.app/2/preview.jpg"; // TODO
+    const modelUrl = "https://qgh4x-kyaaa-aaaaj-afk5q-cai.raw.ic0.app/2/preview.jpg"; // TODO=
 
     const createChunkDefault = async ({batch_id, chunk}) => storageActor.create_chunk({
       batch_id,
