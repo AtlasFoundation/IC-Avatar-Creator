@@ -72,5 +72,5 @@
     "removeComments": false,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-  }
+  },
 }
