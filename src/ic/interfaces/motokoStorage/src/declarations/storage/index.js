@@ -3,8 +3,6 @@ import { Actor, HttpAgent } from "@dfinity/agent";
 // Imports and re-exports candid interface
 import { idlFactory } from './storage.did.js';
 export { idlFactory } from './storage.did.js';
-// CANISTER_ID is replaced by webpack based on node environment
-export const canisterId = process.env.STORAGE_CANISTER_ID;
 
 /**
  * 
@@ -12,9 +10,7 @@ export const canisterId = process.env.STORAGE_CANISTER_ID;
  * @param {{agentOptions?: import("@dfinity/agent").HttpAgentOptions; actorOptions?: import("@dfinity/agent").ActorConfig}} [options]
  * @return {import("@dfinity/agent").ActorSubclass<import("./storage.did.js")._SERVICE>}
  */
- export const createActor = (canisterId, options) => {
-  const agent = new HttpAgent({ ...options?.agentOptions });
-  
+ export const createActor = (canisterId, agent, options) => {  
   // Fetch root key for certificate validation during development
   if(process.env.NODE_ENV !== "production") {
     agent.fetchRootKey().catch(err=>{
@@ -30,9 +26,3 @@ export const canisterId = process.env.STORAGE_CANISTER_ID;
     ...options?.actorOptions,
   });
 };
-  
-/**
- * A ready-to-use agent for the storage canister
- * @type {import("@dfinity/agent").ActorSubclass<import("./storage.did.js")._SERVICE>}
- */
- export const storage = createActor(canisterId);

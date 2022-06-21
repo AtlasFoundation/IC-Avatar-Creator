@@ -2,7 +2,11 @@ import React from "react"
 import './dabStuff.css';
 import dip721v2_idl from '@psychedelic/dab-js/dist/idls/dip_721_v2.did';
 import { sceneService } from "../services";
-import * as assetIDL from './interfaces/motokoStorage/src/declarations/storage_assets';
+import {createActor, idlFactory} from './interfaces/motokoStorage/src/declarations/storage';
+import { Actor, HttpAgent } from "@dfinity/agent";
+
+
+let storageActor;
 
 export function Mint({onSuccess}) {
 
@@ -25,74 +29,61 @@ export function Mint({onSuccess}) {
     return finalNumber;
   }
 
+
+const uploadChunk = async ({batch_name, chunk}) => storageActor.create_chunk({
+    batch_name,
+    content: [...new Uint8Array(await chunk.arrayBuffer())],
+})
+
+const upload = async (file, name) => {
+    const batch_name = name;
+    const chunks = [];
+    const chunkSize = 1500000
+
+    for (let start = 0; start < file.size; start += chunkSize) {
+      const chunk = file.slice(start, start + chunkSize);
+
+      chunks.push(uploadChunk({
+        batch_name,
+        chunk
+      }))
+    }
+
+    const chunkIds = await Promise.all(chunks);
+
+    console.log("chunkIds", chunkIds);
+
+    await storageActor.commit_batch({
+        batch_name,
+        chunk_ids: chunkIds.map(({chunk_id}) => chunk_id),
+        content_type: file.type
+    })
+
+    console.log("upload finished");
+}
+
   const mintNFT = async() => {
-    const canisterId = cipherCanister;
+    const canisterId = cipherAssets;
     const principal = await (window as any).ic.plug.agent.getPrincipal();
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({whitelist});
-    const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
-    const storageActor = await (window as any).ic.plug.createActor({canisterId: cipherAssets, interfaceFactory: assetIDL.idlFactory});
     const image = await sceneService.getScreenShot();
-
+    const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
     const model = await sceneService.getModelFromScene("glb");
 
     const {hair, face, tops, arms, shoes, legs}: any = sceneService.getTraits();
 
+    const agent = (window as any).ic.plug.agent;
+
+    storageActor = createActor(canisterId, agent);
+  
+
     // TODO: Upload glb in chunks
-    const previewImgUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/2/preview.jpg"; // TODO
-    const modelUrl = "https://f2cug-hyaaa-aaaah-abkdq-cai.raw.ic0.app/2/preview.jpg"; // TODO=
+    const previewImgUrl = tokenIndex + "_preview.jpg"; // TODO
+    const modelUrl = tokenIndex + "_model.glb"; // TODO=
 
-    const createChunkDefault = async ({batch_id, chunk}) => storageActor.create_chunk({
-      batch_id,
-      content: [...new Uint8Array(await chunk.arrayBuffer())]
-    })
-
-    {
-      const {batch_id} = await storageActor.create_batch({});
-    
-      const promises = [];
-      const chunkSize = 700000;
-      console.log(image.size)
-      for (let start = 0; start < image.size; start += chunkSize) {
-        const chunk = image.slice(start, start + chunkSize);
-        promises.push(createChunkDefault({
-          batch_id,
-          chunk
-        }));
-        console.log(chunk);
-      }
-    
-      const chunkIds = await Promise.all(promises);
-      console.log(chunkIds);
-    
-      const someResponse = await storageActor.commit_batch({
-        batch_id,
-        operations: [{'CreateAsset': {key: 'thumbnail', content_type: image.type}}],
-      })
-      console.log(someResponse);
-    }
-    {
-      const {batch_id} = await storageActor.create_batch({});
-    
-      const promises = [];
-      const chunkSize = 700000;
-      for (let start = 0; start < (model as Blob).size; start += chunkSize) {
-        const chunk = (model as Blob).slice(start, start + chunkSize);
-        promises.push(createChunkDefault({
-          batch_id,
-          chunk
-        }));
-      }
-    
-      const chunkIds = await Promise.all(promises);
-      console.log(chunkIds);
-    
-      const storageResponse = await storageActor.commit_batch({
-        batch_id,
-        operations: [{'CreateAsset': {key: 'model', content_type: (model as Blob).type}}],
-      })
-      console.log(storageResponse);
-    }
+    await upload(image, previewImgUrl);
+    await upload(model, modelUrl);
 
         // opensea metadata format
         const metadata = {
@@ -148,9 +139,9 @@ export function Mint({onSuccess}) {
         console.log("tokenIndex is", tokenIndex);
         console.log("properties", properties)
     
-    // const mintResult = await plugActor.mint(principal, tokenIndex, properties);
-    // if(onSuccess) onSuccess(mintResult);
-    // console.log(mintResult);
+    const mintResult = await plugActor.mint(principal, tokenIndex, properties);
+    if(onSuccess) onSuccess(mintResult);
+    console.log(mintResult);
   }
 
   return (
