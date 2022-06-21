@@ -67,9 +67,10 @@ const upload = async (file, name) => {
     const principal = await (window as any).ic.plug.agent.getPrincipal();
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({whitelist});
-    const image = await sceneService.getScreenShot();
-    const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
-    const model = await sceneService.getModelFromScene("glb");
+    const image = await sceneService.getScreenShotByElementId('editor-scene');
+    console.log("image", image);
+    const plugActor = await (window as any).ic.plug.createActor({canisterId: cipherCanister, interfaceFactory: dip721v2_idl});
+    // const model = await sceneService.getModelFromScene("glb");
 
     const {hair, face, tops, arms, shoes, legs}: any = sceneService.getTraits();
 
@@ -77,13 +78,17 @@ const upload = async (file, name) => {
 
     storageActor = createActor(canisterId, agent);
   
+    console.log("image is", image);
+    // console.log("model is", model);
 
     // TODO: Upload glb in chunks
     const previewImgUrl = tokenIndex + "_preview.jpg"; // TODO
     const modelUrl = tokenIndex + "_model.glb"; // TODO=
 
-    await upload(image, previewImgUrl);
-    await upload(model, modelUrl);
+        upload(image, previewImgUrl);
+        // upload(model, modelUrl);
+
+        // sceneService.download(model, 'model', 'glb', false);
 
         // opensea metadata format
         const metadata = {

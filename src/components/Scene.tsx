@@ -64,6 +64,7 @@ export default function Scene(props: any) {
         <Canvas
           className="canvas"
           id="editor-scene"
+          gl={{ preserveDrawingBuffer: true }}
         >
           <gridHelper
             args={[50, 25, "#101010", "#101010"]}
