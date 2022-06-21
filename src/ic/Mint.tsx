@@ -11,7 +11,7 @@ let storageActor;
 export function Mint({onSuccess}) {
 
   const cipherCanister = "6hgw2-nyaaa-aaaai-abkqq-cai"
-  const cipherAssets = "f2cug-hyaaa-aaaah-abkdq-cai"
+  const cipherAssets = "piwdi-uyaaa-aaaam-qaojq-cai"
   const whitelist = [cipherCanister, cipherAssets];
 
   const checkIndex = async() => {
@@ -63,7 +63,8 @@ const upload = async (file, name) => {
 }
 
   const mintNFT = async() => {
-    const canisterId = cipherAssets;
+    const canisterId = cipherCanister;
+    const assetsCanister = cipherAssets;
     const principal = await (window as any).ic.plug.agent.getPrincipal();
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({whitelist});
@@ -75,12 +76,14 @@ const upload = async (file, name) => {
 
     const agent = (window as any).ic.plug.agent;
 
-    storageActor = createActor(canisterId, agent);
+    storageActor = createActor(assetsCanister, agent);
   
 
     // TODO: Upload glb in chunks
     const previewImgUrl = tokenIndex + "_preview.jpg"; // TODO
     const modelUrl = tokenIndex + "_model.glb"; // TODO=
+    const actualImgUrl = "https://" + cipherAssets + ".raw.ic0.app/assets/" + previewImgUrl;
+    const actualModelUrl = "https://" + cipherAssets + ".raw.ic0.app/assets/" + modelUrl;
 
     await upload(image, previewImgUrl);
     await upload(model, modelUrl);
@@ -89,8 +92,8 @@ const upload = async (file, name) => {
         const metadata = {
           name: import.meta.env.VITE_ASSET_NAME ?? "Open Character Creator Avatar",
           description: import.meta.env.VITE_ASSET_DESCRIPTION ?? "Custom 3D NFT Avatars",
-          image: previewImgUrl,
-          animation_url: modelUrl,
+          image: actualImgUrl,
+          animation_url: actualModelUrl,
           attributes: [
             {
               trait_type: "Hair",
@@ -125,7 +128,7 @@ const upload = async (file, name) => {
           [
             "location",
             {
-              "TextContent": previewImgUrl
+              "TextContent": actualImgUrl
             }
           ],
           [
