@@ -121,6 +121,12 @@ export default function Selector(props) {
     templateInfo ? Object.keys(templateInfo).length : templateInfo,
   ])
 
+  React.useEffect(() => {
+    if(scene){
+      sceneService.setScene(scene);
+    }
+  }, [scene])
+
   const setTempInfo = (id) => {
     apiService.fetchTemplate(id).then((res) => {
       setTemplateInfo(res)

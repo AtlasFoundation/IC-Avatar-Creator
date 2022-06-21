@@ -16,7 +16,7 @@ export function Mint({onSuccess}) {
 
   const checkIndex = async() => {
     const canisterId = cipherCanister;
-    await (window as any).ic.plug.createAgent({whitelist});
+    // await (window as any).ic.plug.createAgent({whitelist});
     const plugActor = await (window as any).ic.plug.createActor({canisterId, interfaceFactory: dip721v2_idl});
     let tokenIndex = await plugActor.totalSupply();
     console.log("tokenIndex is", tokenIndex)
@@ -62,6 +62,10 @@ const upload = async (file, name) => {
     console.log("upload finished");
 }
 
+const downloadModel = (model, format: any) => {
+  sceneService.download(model, `testmodel`, format, false);
+};
+
   const mintNFT = async() => {
     const canisterId = cipherCanister;
     const assetsCanister = cipherAssets;
@@ -71,7 +75,9 @@ const upload = async (file, name) => {
     const image = await sceneService.getScreenShotByElementId('editor-scene');
     console.log("image", image);
     const plugActor = await (window as any).ic.plug.createActor({canisterId: cipherCanister, interfaceFactory: dip721v2_idl});
-    // const model = await sceneService.getModelFromScene("glb");
+    const model = await sceneService.getModel();
+    console.log("model is", model)
+
 
     const {hair, face, tops, arms, shoes, legs}: any = sceneService.getTraits();
 
@@ -80,7 +86,7 @@ const upload = async (file, name) => {
     storageActor = createActor(assetsCanister, agent);
   
     console.log("image is", image);
-    // console.log("model is", model);
+    console.log("mo//del is", model);
 
     // TODO: Upload glb in chunks
     const previewImgUrl = tokenIndex + "_preview.jpg"; // TODO
@@ -88,10 +94,8 @@ const upload = async (file, name) => {
     const actualImgUrl = "https://" + cipherAssets + ".raw.ic0.app/assets/" + previewImgUrl;
     const actualModelUrl = "https://" + cipherAssets + ".raw.ic0.app/assets/" + modelUrl;
 
-        upload(image, previewImgUrl);
-        // upload(model, modelUrl);
-
-        // sceneService.download(model, 'model', 'glb', false);
+        await upload(image, previewImgUrl);
+        // await upload(model, modelUrl);
 
         // opensea metadata format
         const metadata = {

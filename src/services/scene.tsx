@@ -37,6 +37,7 @@ async function getModelFromScene(format = 'glb') {
       forcePowerOfTwoTextures: false,
       maxTextureSize: 1024 || Infinity
     }
+    console.log("Scene is", scene);
     const glb: any = await new Promise((resolve) => exporter.parse(scene, resolve, (error) => console.error("Error getting model"), options))
     return new Blob([glb], { type: 'model/gltf-binary' })
   } else if (format && format === 'vrm') {
@@ -47,6 +48,23 @@ async function getModelFromScene(format = 'glb') {
     return console.error("Invalid format");
   }
 }
+
+async function getModel(
+) {
+    const exporter = new GLTFExporter();
+    var options = {
+      trs: false,
+      onlyVisible: false,
+      truncateDrawRange: true,
+      binary: true,
+      forcePowerOfTwoTextures: false,
+      maxTextureSize: 1024 || Infinity
+    };
+    const glb = await new Promise((resolve) => exporter.parse(scene, resolve, (error) => console.error("Error getting model", error), options));
+    console.log("glb is", glb)
+    return getArrayBuffer(glb);
+}
+
 async function getScreenShot() {
   return await getScreenShotByElementId("editor-scene")
 }
@@ -229,7 +247,7 @@ async function download(
           saveString(output, `${downloadFileName}.gltf`);
         }
       },
-      (error) => { console.error("Error parsing")},
+      (error) => { console.error("Error parsing", error)},
       options
     );
   } else if (format && format === "obj") {
@@ -259,5 +277,6 @@ export const sceneService = {
   setScene,
   getScene,
   getTraits,
-  setTraits
+  setTraits,
+  getModel
 };

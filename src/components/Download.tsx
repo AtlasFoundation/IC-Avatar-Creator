@@ -55,7 +55,7 @@ export default function DownloadCharacter({ scene, templateInfo, model, download
       right: "154px",
       zIndex: 10
     }}>
-      {/* <Button
+      <Button
         id="download-button"
         aria-controls="download-menu"
         aria-haspopup="true"
@@ -65,7 +65,7 @@ export default function DownloadCharacter({ scene, templateInfo, model, download
         <Avatar>
           <DownloadIcon />
         </Avatar>
-      </Button> */}
+      </Button>
       <Modal
         open={downloadPopup}
         onClose={handleClose}

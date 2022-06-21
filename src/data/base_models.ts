@@ -2,7 +2,7 @@ export default [
   {
     "id": "1",
     "name": "Male",
-    "file": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/base_models_compressed/Male_Muscular.vrm",
+    "file": "/Male_Muscular.vrm",
     "thumbnail": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/base_models_compressed/Male_Muscular.png",
     "format": "vrm",
     "bodyTargets": [
@@ -19,8 +19,8 @@ export default [
   {
     "id": "2",
     "name": "Female",
-    "file": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/base_models_compressed/Female_Thin.vrm",
-    "thumbnail": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/base_models_compressed/Female_Thin.png",
+    "file": "/Female_Thin.vrm",
+    "thumbnail": "/Female_Thin.png",
     "format": "vrm",
     "bodyTargets": [
       "CC_Base_Body_1",

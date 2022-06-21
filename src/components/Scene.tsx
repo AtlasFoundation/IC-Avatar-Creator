@@ -35,12 +35,6 @@ export default function Scene(props: any) {
     setTemplateInfo,
     templateInfo }: any = props;
 
-    useEffect(() => {
-      if(scene){
-        sceneService.setScene(scene);
-      }
-    }, [scene])
-
     const canvasWrap = {
       height: "100vh",
       width: "100vw",
@@ -66,10 +60,6 @@ export default function Scene(props: any) {
           id="editor-scene"
           gl={{ preserveDrawingBuffer: true }}
         >
-          <gridHelper
-            args={[50, 25, "#101010", "#101010"]}
-            position={[0, 0, 0]}
-          />
           <spotLight
             intensity={1}
             position={[0, 3.5, 2]}
