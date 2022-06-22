@@ -1,18 +1,19 @@
-import React from "react"
+import React, { Fragment, useState } from "react"
 import './dabStuff.css';
 import dip721v2_idl from '@psychedelic/dab-js/dist/idls/dip_721_v2.did';
 import { sceneService } from "../services";
 import { createActor, idlFactory } from './interfaces/motokoStorage/src/declarations/storage';
-import { Actor, HttpAgent } from "@dfinity/agent";
+import LoadingOverlayCircularStatic from "../components/LoadingOverlay";
 
 
 let storageActor;
 
 export function Mint({ onSuccess }) {
+  const [loadingModelProgress, setMintingProgress] = useState<number>(0)
+  const [loadingModel, setMinting] = useState<boolean>(false)
 
   const cipherCanister = "6hgw2-nyaaa-aaaai-abkqq-cai"
   const cipherAssets = "piwdi-uyaaa-aaaam-qaojq-cai"
-
 
   const whitelist = [cipherCanister, cipherAssets];
 
@@ -64,22 +65,33 @@ export function Mint({ onSuccess }) {
     console.log("upload finished");
   }
 
-  const downloadModel = (model, format: any) => {
-    sceneService.download(model, `testmodel`, format, false);
-  };
-
   const mintNFT = async () => {
+    setMinting(true)
+    setMintingProgress(5 / 100)
+
     const canisterId = cipherCanister;
     const assetsCanister = cipherAssets;
     const principal = await (window as any).ic.plug.agent.getPrincipal();
+
+    setMintingProgress(15 / 100)
+
     const tokenIndex = await checkIndex();
     await (window as any).ic.plug.createAgent({ whitelist });
+
+    setMintingProgress(20 / 100)
+
     const image = await sceneService.getScreenShotByElementId('editor-scene');
     console.log("image", image);
-    const plugActor = await (window as any).ic.plug.createActor({ canisterId: cipherCanister, interfaceFactory: dip721v2_idl });
-    const model = await sceneService.getModelFromScene();
-    console.log("model is", model)
 
+    setMintingProgress(25 / 100)
+
+    const plugActor = await (window as any).ic.plug.createActor({ canisterId: cipherCanister, interfaceFactory: dip721v2_idl });
+
+    setMintingProgress(30 / 100)
+
+    const model = await sceneService.getModelFromScene();
+
+    setMintingProgress(35 / 100)
 
     const { hair, face, tops, arms, shoes, legs }: any = sceneService.getTraits();
 
@@ -101,8 +113,13 @@ export function Mint({ onSuccess }) {
     const previewAssetContainer = "https://fsn6e-wqaaa-aaaam-qapqa-cai.ic0.app/?token=" + tokenIndex;
 
     await upload(image, previewImgUrl);
+
+    setMintingProgress(50 / 100)
+
     console.log("uploading model")
     await upload(model, modelUrl);
+
+    setMintingProgress(99 / 100)
 
     // opensea metadata format
     const metadata = {
@@ -157,18 +174,24 @@ export function Mint({ onSuccess }) {
     console.log("principal is", principal);
     console.log("tokenIndex is", tokenIndex);
     console.log("properties", properties)
-
+    setMintingProgress(1)
+    setMinting(false)
     const mintResult = await plugActor.mint(principal, tokenIndex, properties);
     if (onSuccess) onSuccess(previewAssetContainer);
     console.log(mintResult);
+
   }
 
   return (
-    <>
+    <Fragment>
       <div className='buttonContainer'>
-        <h6>Minting Dip721v2:</h6>
+      {loadingModel && (
+        <LoadingOverlayCircularStatic
+          loadingModelProgress={loadingModelProgress}
+        />
+      )}
         <button id='mintNFT' onClick={mintNFT} className='mintButton'>Mint</button>
       </div>
-    </>
+    </Fragment>
   )
 }

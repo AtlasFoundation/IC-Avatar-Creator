@@ -91,7 +91,7 @@ export default function Scene(props: any) {
             maxDistance={3}
             minPolarAngle={0.0}
             maxPolarAngle={Math.PI / 2 - 0.1}
-            enablePan={false}
+            enablePan={true}
             target={[0, 1, 0]}
           />
           <PerspectiveCamera

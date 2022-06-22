@@ -71,8 +71,9 @@ export function PlugWallet({ onConnect, onFail, children }: PlugWalletProps) {
     backgroundColor: "#202020",
     minWidth: "160px",
     maxWidth: "180px",
+    right: "10px",
     boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.6)",
-    zIndex: "10",
+    zIndex: "10"
   }
 
   const menuHeaderButton = {
@@ -139,7 +140,6 @@ export function PlugWallet({ onConnect, onFail, children }: PlugWalletProps) {
     textAlign: "left" as "left",
     fontSize: "18px",
     display: "block" as "block",
-    height: "16px",
     hover: {
       backgroundColor: "#303030",
       cursor: "pointer" as "pointer",
@@ -175,7 +175,6 @@ export function PlugWallet({ onConnect, onFail, children }: PlugWalletProps) {
                     }
                   </div>
                 </div>
-                <div className="menuDivider" style={menuDivider} />
                 <div className='menuBody' style={menuBody}>
                   {children}
                 </div>
