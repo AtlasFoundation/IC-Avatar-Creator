@@ -2,7 +2,7 @@ export default [
   {
     "id": "1",
     "name": "Male",
-    "file": "/Male_Muscular.vrm",
+    "file": "/Male_Muscular.glb",
     "thumbnail": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/base_models_compressed/Male_Muscular.png",
     "format": "vrm",
     "bodyTargets": [
@@ -13,7 +13,7 @@ export default [
       "CC_Base_Body_5",
       "CC_Base_Body_6"
     ],
-    "traitsDirectory": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/model_traits/male_muscular",
+    "traitsDirectory": "/male_muscular",
     "thubnailsDirectory": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/model_traits/thubnails"
   },
   {

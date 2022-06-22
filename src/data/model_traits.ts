@@ -144,7 +144,7 @@ export default [
             {
                 "id": "uid-t15",
                 "name": "Tops 15",
-                "directory": "/tops/Tops_15.vrm",
+                "directory": "/tops/Tops_15.glb",
                 "thumbnail": "/tops/Tops_15/Isometric.png"
             }
         ]
@@ -174,7 +174,7 @@ export default [
             {
                 "id": "uid-s2",
                 "name": "Shoes 2",
-                "directory": "/shoes/Shoes_2.vrm",
+                "directory": "/shoes/Shoes_2.glb",
                 "thumbnail": "/shoes/Shoes_2/Isometric.png"
             },
             {
@@ -204,7 +204,7 @@ export default [
             {
                 "id": "uid-l15",
                 "name": "Legs 15",
-                "directory": "/legs/Legs_15.vrm",
+                "directory": "/legs/Legs_15.glb",
                 "thumbnail": "/legs/Legs_15/Isometric.png"
             },
             {

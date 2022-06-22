@@ -126,7 +126,6 @@ export default function DownloadCharacter({ scene, templateInfo, model, download
             target={[0, 1, 0]}
           />
           <PerspectiveCamera
-            rotation={[0,Math.PI,0]}
           >
             {downloadPopup && (
             <TemplateModel scene={scene} />

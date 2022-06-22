@@ -85,7 +85,7 @@ export default function CharacterEditor(props: any) {
         })
         .then((gltf) => {
           const vrm = gltf;
-          VRM.from(gltf).then((vrm) => {
+          // VRM.from(gltf).then((vrm) => {
             vrm.scene.traverse((o) => {
               o.frustumCulled = false
             })
@@ -95,7 +95,7 @@ export default function CharacterEditor(props: any) {
             setLoadingModel(false)
             setScene(vrm.scene)
             setModel(vrm)
-          })
+          // })
         })
     }
   }, [templateInfo.file])

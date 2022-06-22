@@ -95,7 +95,6 @@ export default function Scene(props: any) {
             target={[0, 1, 0]}
           />
           <PerspectiveCamera
-                      rotation={[0,Math.PI,0]}
           >
             {!downloadPopup && !mintPopup && (
               <TemplateModel scene={scene} />
