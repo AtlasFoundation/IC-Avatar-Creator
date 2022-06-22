@@ -63,11 +63,7 @@ export default function ICApp() {
         onConnect={handleConnect}
         onFail={handleFail}
       >
-        <Mint onSuccess={(callback) => { setShowAlert(true); setAlertTitle(callback && JSON.stringify(callback, (key, value) =>
-        typeof value === 'bigint'
-            ? value.toString()
-            : value // return everything else unchanged
-    ) || "Success"); }} />
+        <Mint onSuccess={(callback) => { setShowAlert(true); setAlertTitle("Mint Successful. View here: " + callback); }} />
       </PlugWallet>
       </div>
       {showAlert && (

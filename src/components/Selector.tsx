@@ -185,8 +185,9 @@ export default function Selector(props) {
                 setLoadingTrait(Math.round((e.loaded * 100) / e.total))
               },
             )
-            .then((gltf) => {
-              VRM.from(gltf).then(async (vrm) => {
+            .then(async (gltf) => {
+              const vrm = gltf;
+              // VRM.from(gltf).then(async (vrm) => {
                 // vrm.scene.scale.z = -1;
                 // console.log("scene.add", scene.add)
                 // TODO: This is a hack to prevent early loading, but we seem to be loading traits before this anyways
@@ -207,9 +208,9 @@ export default function Selector(props) {
                 })
 
                 scene.add(vrm.scene)
-                vrm.humanoid.getBoneNode(
-                  VRMSchema.HumanoidBoneName.Hips,
-                ).rotation.y = Math.PI
+                // vrm.humanoid.getBoneNode(
+                //   VRMSchema.HumanoidBoneName.Hips,
+                // ).rotation.y = Math.PI
                 vrm.scene.frustumCulled = false
                 // console.log(trait);
                 if (traitName === "hair") {
@@ -288,7 +289,7 @@ export default function Selector(props) {
                 setLoadingTrait(null)
                 setLoadingTraitOverlay(false)
               })
-            })
+            // })
         }
       }
     }

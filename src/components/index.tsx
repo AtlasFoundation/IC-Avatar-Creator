@@ -71,6 +71,11 @@ export default function CharacterEditor(props: any) {
   }, [avatar])
 
   useEffect(() => {
+    if(model)
+    sceneService.setModel(model);
+  }, [model])
+
+  useEffect(() => {
     if (templateInfo.file && templateInfo.format) {
       setLoadingModel(true)
       const loader = new GLTFLoader()
@@ -79,13 +84,14 @@ export default function CharacterEditor(props: any) {
           setLoadingModelProgress((e.loaded * 100) / e.total)
         })
         .then((gltf) => {
+          const vrm = gltf;
           VRM.from(gltf).then((vrm) => {
             vrm.scene.traverse((o) => {
               o.frustumCulled = false
             })
-            vrm.humanoid.getBoneNode(
-              VRMSchema.HumanoidBoneName.Hips,
-            ).rotation.y = Math.PI
+            // vrm.humanoid.getBoneNode(
+            //   VRMSchema.HumanoidBoneName.Hips,
+            // ).rotation.y = Math.PI
             setLoadingModel(false)
             setScene(vrm.scene)
             setModel(vrm)

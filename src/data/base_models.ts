@@ -20,7 +20,7 @@ export default [
     "id": "2",
     "name": "Female",
     "file": "/Female_Thin.vrm",
-    "thumbnail": "/Female_Thin.png",
+    "thumbnail": "https://nolimitcrypto.s3.us-west-2.amazonaws.com/base_models_compressed/Female_Thin.png",
     "format": "vrm",
     "bodyTargets": [
       "CC_Base_Body_1",
