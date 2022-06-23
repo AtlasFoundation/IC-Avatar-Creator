@@ -1,4 +1,5 @@
 # Avatar Creator For Internet Computer
+We created this for the Supernova Hackathon, [read about our submission here](https://devpost.com/software/open-character-creator-minter)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -44,4 +45,4 @@ You can do so from the command line:
 ```
 npm install @psychedelic/dab-js@latest
 ```
-Find more details about installing versions in the package page here
+Find more details about [installing dab jshere](https://github.com/Psychedelic/DAB-js/packages/987540)
