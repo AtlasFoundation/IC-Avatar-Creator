@@ -1,18 +1,19 @@
-import CloseIcon from "@mui/icons-material/Close";
-import GavelIcon from "@mui/icons-material/Gavel";
-import { createTheme, Modal, Typography } from "@mui/material";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import { PlugWallet } from './ic/PlugWallet';
-import { Mint } from "./ic/Mint";
-import CharacterEditor from "./components/index";
-import { sceneService } from "./services/scene";
-import defaultTemplates from "./data/base_models";
+import CloseIcon from "@mui/icons-material/Close"
+import GavelIcon from "@mui/icons-material/Gavel"
+import { createTheme, Modal, Typography } from "@mui/material"
+import Alert from "@mui/material/Alert"
+import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
+import { Box } from "@mui/system"
+import React, { useEffect, useState } from "react"
+import { PlugWallet } from "./ic/PlugWallet"
+import { PlugWalletTrade } from "./ic/trade"
+import { Mint } from "./ic/Mint"
+import CharacterEditor from "./components/index"
+import { sceneService } from "./services/scene"
+import defaultTemplates from "./data/base_models"
 
-import "./ic/style.scss";
+import "./ic/style.scss"
 
 const theme = createTheme({
   palette: {
@@ -21,7 +22,7 @@ const theme = createTheme({
       main: "#de2a5e",
     },
   },
-});
+})
 
 const style = {
   position: "absolute" as "absolute",
@@ -35,36 +36,52 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
-};
+}
 
 export default function ICApp() {
-  const [connected, setConnected] = useState(false);
-  const [alertTitle, setAlertTitle] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
-  const [principalId, setPrincipalId] = useState(false);
-  const [mintTraits, setMintTraits] = useState({ hair: null, face: null, tops: null, arms: null, legs: null, shoes: null })
+  const [connected, setConnected] = useState(false)
+  const [alertTitle, setAlertTitle] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [principalId, setPrincipalId] = useState(false)
+  const [mintTraits, setMintTraits] = useState({
+    hair: null,
+    face: null,
+    tops: null,
+    arms: null,
+    legs: null,
+    shoes: null,
+  })
   const [PreviewCanvas, setPreviewCanvas] = useState(null)
 
   const handleConnect = (principalId) => {
-    console.log("Logged in with principalId", principalId);
-    setPrincipalId(principalId);
-    setConnected(true);
+    console.log("Logged in with principalId", principalId)
+    setPrincipalId(principalId)
+    setConnected(true)
   }
 
   const handleFail = (error) => {
-    console.log("Failed to login with Plug", error);
+    console.log("Failed to login with Plug", error)
   }
 
   return (
     <>
-      <CharacterEditor theme={theme} templates={defaultTemplates} setMintTraits={setMintTraits} setPreviewCanvas={setPreviewCanvas} />
+      <CharacterEditor
+        theme={theme}
+        templates={defaultTemplates}
+        setMintTraits={setMintTraits}
+        setPreviewCanvas={setPreviewCanvas}
+      />
       <div className="connect-mint-wrap">
-      <PlugWallet
-        onConnect={handleConnect}
-        onFail={handleFail}
-      >
-        <Mint onSuccess={(callback) => { setShowAlert(true); setAlertTitle("Mint Successful. View here: " + callback); }} />
-      </PlugWallet>
+        <PlugWallet onConnect={handleConnect} onFail={handleFail}>
+          <Mint
+            onSuccess={(callback) => {
+              setShowAlert(true)
+              setAlertTitle("Mint Successful. View here: " + callback)
+            }}
+          />
+        </PlugWallet>
+
+        <PlugWalletTrade />
       </div>
       {showAlert && (
         <Alert
@@ -77,7 +94,7 @@ export default function ICApp() {
               color="inherit"
               size="small"
               onClick={() => {
-                setShowAlert(false);
+                setShowAlert(false)
               }}
             >
               <CloseIcon fontSize="inherit" />
@@ -89,5 +106,5 @@ export default function ICApp() {
         </Alert>
       )}
     </>
-  );
+  )
 }
