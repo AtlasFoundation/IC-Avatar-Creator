@@ -4,6 +4,7 @@ import React, { Suspense, useState, useEffect, Fragment } from "react"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 import { sceneService } from "../services"
 import DownloadCharacter from "./Download"
+import TradeNft from '../ic/trade'
 import LoadingOverlayCircularStatic from "./LoadingOverlay"
 import Scene from "./Scene"
 
@@ -43,6 +44,7 @@ export default function CharacterEditor(props: any) {
   const [templateInfo, setTemplateInfo] = useState({ file: null, format: null })
 
   const [downloadPopup, setDownloadPopup] = useState<boolean>(false)
+  const [tradePopup, setTradePopup ] = useState<boolean>(false)
   const [template, setTemplate] = useState<number>(1)
   const [loadingModelProgress, setLoadingModelProgress] = useState<number>(0)
   const [ avatar,setAvatar] = useState<Avatar>({
@@ -116,6 +118,14 @@ export default function CharacterEditor(props: any) {
               model={model}
               downloadPopup={downloadPopup}
               setDownloadPopup={setDownloadPopup}
+            />
+
+<TradeNft
+              scene={scene}
+              templateInfo={templateInfo}
+              model={model}
+              tradePopup={tradePopup}
+              setTradePopup={setTradePopup}
             />
             <Scene
               wrapClass="generator"

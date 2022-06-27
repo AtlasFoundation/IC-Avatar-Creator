@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton"
 import { Box } from "@mui/system"
 import React, { useEffect, useState } from "react"
 import { PlugWallet } from "./ic/PlugWallet"
-import { PlugWalletTrade } from "./ic/trade"
+// import { PlugWalletTrade } from "./ic/trade"
 import { Mint } from "./ic/Mint"
 import CharacterEditor from "./components/index"
 import { sceneService } from "./services/scene"
@@ -81,7 +81,7 @@ export default function ICApp() {
           />
         </PlugWallet>
 
-        <PlugWalletTrade />
+        {/* <PlugWalletTrade /> */}
       </div>
       {showAlert && (
         <Alert

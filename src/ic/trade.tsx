@@ -1,47 +1,53 @@
 import React, {useState} from 'react'
-import './trade.css'
+import {Modal} from "@mui/material";
+import Button from "@mui/material/Button";
+import {Box} from "@mui/system";
+import {OrbitControls} from "@react-three/drei/core/OrbitControls";
+import {PerspectiveCamera} from "@react-three/drei/core/PerspectiveCamera";
+import {Canvas} from "@react-three/fiber";
+import {sceneService} from "../services";
+import {TemplateModel} from "../components/Models";
 
-type PlugWalletProps = {
-    onConnect?: (userPrincipal : string) => void,
-    onFail?: (reason : string) => void,
-    children?: React.ReactNode
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3
+};
+
+const closePopup = {
+    position: "absolute",
+    right: 0,
+    top: 11,
+    background: "none",
+    color: "#999999"
 }
 
-export function PlugWalletTrade({onConnect, onFail, children} : PlugWalletProps) { // The component will rerender whenever state variables change
-
-    const [modal, setModal] = useState(false);
-
-    const toggleModal = () => {
-        setModal(!modal)
-    }
-
-    const getPlug = () => (window as any).ic ?. plug;
-
-    // const tradeItem = {
-    //     background: "none" as "none",
-    //     border: "1px solid #ffcf40",
-    //     borderRadius: "10px",
-    //     fontSize: "14px",
-    //     padding: "8px 10px",
-    //     color: "lightgoldenrodyellow",
-    //     cursor: "pointer" as "pointer",
-    //     display: "flex" as "flex",
-    //     flexDirection: "row" as "row",
-    //     justifyContent: "center" as "center",
-    //     alignItems: "center" as "center",
-    //     hover: {
-    //         backgroundColor: "rgba(255,255,255,0.1)"
-    //     }
-    // }
-
-    const statusBubble = {
-        height: "10px",
-        width: "10px",
-        border: "1px solid black",
-        borderRadius: "360px",
-        marginLeft: "6px",
-        backgroundColor: "rgba(255,0,0,0.5)"
-    }
+export default function TradeNft({
+    scene,
+    templateInfo,
+    model,
+    tradePopup,
+    setTradePopup
+}) {
+    const downloadModel = (format : any) => {
+        sceneService.download(model, `CC_Model_${
+            templateInfo.name.replace(" ", "_")
+        }`, format, false);
+    };
+    const handleOpen = () => {
+        setTradePopup(true);
+    };
+    const handleClose = () => {
+        setTradePopup(false);
+    };
 
     const modalButtons = {
         display: "flex",
@@ -66,43 +72,107 @@ export function PlugWalletTrade({onConnect, onFail, children} : PlugWalletProps)
     }
 
     return (
-        <>
-            <div>
-                <button onClick={toggleModal}
-                    className="btn-modal">
-                    Trade nft
-                </button>
-                {
-                modal && (
-                    <div className="modal">
-                        <div className="overlay">
-                            <div className="modal-content">
-                                <h2 className="trade-heading">Trade mint</h2>
-                                <img src="./public/minted.png" alt="" className="image-nft"/>
-
-                                <div className='modalButtons'
-                                    style={modalButtons}>
-                                    <div className="buttonModal" style={buttonModal}>
-                                        <button className='confirm-modal'
-                                            onClick={toggleModal}>
-                                            Confirm
-                                        </button>
-                                    </div>
-
-                                    <div className="buttonModal" style={buttonModal}>
-                                        <button className='cancel-modal'
-                                            onClick={toggleModal}>
-                                            Cancel
-                                        </button>
-                                    </div>
-
+    
+                    <div style={
+                        {
+                            position: "absolute",
+                            top: "20px",
+                            right: "174px",
+                            margin: "60px",
+                            zIndex: 10
+                        }
+                    }>
+                        <Button id="download-button" aria-controls="download-menu" aria-haspopup="true"
+                            aria-expanded={
+                                tradePopup ? "true" : undefined
+                            }
+                            onClick={handleOpen}>
+                            <Button>
+                                Trade nft
+                            </Button>
+                        </Button>
+                        <Modal open={tradePopup}
+                            onClose={handleClose}
+                            aria-labelledby="child-modal-title"
+                            aria-describedby="child-modal-description">
+                            <Box sx={
+                                {
+                                    ... style,
+                                    border: 0
+                                }
+                            }>
+                                <Button onClick={handleClose}
+                                    sx={closePopup}>Cancel</Button>
+                                <Button onClick={
+                                    () => downloadModel('vrm')
+                                }>Confirm
+                                </Button>
+                                <div id="screenshot-canvas-wrap"
+                                    style={
+                                        {
+                                            height: 2080,
+                                            width: 2080,
+                                            zoom: 0.2,
+                                            background: "#111111"
+                                        }
+                                }>
+                                    <Canvas id="screenshot-scene"
+                                        gl={
+                                            {preserveDrawingBuffer: true}
+                                    }>
+                                        <spotLight // ref={ref}
+                                            intensity={1}
+                                            position={
+                                                [0, 3.5, 2]
+                                            }
+                                            shadow-mapSize-width={2048}
+                                            shadow-mapSize-height={2048}
+                                            castShadow/>
+                                        <spotLight // ref={ref}
+                                            intensity={0.2}
+                                            position={
+                                                [-5, 2.5, 4]
+                                            }
+                                            shadow-mapSize-width={2048}
+                                            shadow-mapSize-height={2048}
+                                            // castShadow
+                                        />
+                                        <spotLight // ref={ref}
+                                            intensity={0.2}
+                                            position={
+                                                [5, 2.5, 4]
+                                            }
+                                            shadow-mapSize-width={2048}
+                                            shadow-mapSize-height={2048}
+                                            // castShadow
+                                        />
+                                        <spotLight // ref={ref}
+                                            intensity={0.3}
+                                            position={
+                                                [0, -2, -8]
+                                            }
+                                            shadow-mapSize-width={2048}
+                                            shadow-mapSize-height={2048}
+                                            castShadow/>
+                                        <OrbitControls minDistance={1}
+                                            maxDistance={2}
+                                            minPolarAngle={0}
+                                            maxPolarAngle={
+                                                Math.PI / 2 - 0.1
+                                            }
+                                            enablePan={true}
+                                            target={
+                                                [0, 1, 0]
+                                            }/>
+                                        <PerspectiveCamera> {
+                                            tradePopup && (
+                                                <TemplateModel scene={scene}/>
+                                            )
+                                        } </PerspectiveCamera>
+                                    </Canvas>
                                 </div>
-                            </div>
-                        </div>
-
+                            </Box>
+                        </Modal>
                     </div>
-                )
-            } </div>
-        </>
     )
 }
