@@ -6,14 +6,17 @@ import { sceneService } from "../services"
 import DownloadCharacter from "./Download"
 import LoadingOverlayCircularStatic from "./LoadingOverlay"
 import Scene from "./Scene"
+import { AnimationMixer } from "three";
 
 interface Avatar{
-  hair:{},
-  face:{},
-  tops:{},
-  arms:{},
-  shoes:{},
-  legs:{}
+  neck:{},
+  head:{},
+  chest:{},
+  body:{},
+  legs:{},
+  hand:{},
+  foot:{},
+  waist:{}
 }
 
 export default function CharacterEditor(props: any) {
@@ -40,18 +43,20 @@ export default function CharacterEditor(props: any) {
 
   const [scene, setScene] = useState<object>(Object)
   // States Hooks used in template editor //
-  const [templateInfo, setTemplateInfo] = useState({ file: null, format: null })
+  const [templateInfo, setTemplateInfo] = useState({ file: null, format: null, animation: null })
 
   const [downloadPopup, setDownloadPopup] = useState<boolean>(false)
   const [template, setTemplate] = useState<number>(1)
   const [loadingModelProgress, setLoadingModelProgress] = useState<number>(0)
   const [ avatar,setAvatar] = useState<Avatar>({
-    hair:{},
-    face:{},
-    tops:{},
-    arms:{},
-    shoes:{},
-    legs:{}
+    neck:{},
+    head:{},
+    chest:{},
+    body:{},
+    legs:{},
+    hand:{},
+    foot:{},
+    waist:{}
   })
   const [loadingModel, setLoadingModel] = useState<boolean>(false)
 
@@ -76,6 +81,7 @@ export default function CharacterEditor(props: any) {
   }, [model])
 
   useEffect(() => {
+    let timer, modelMixer;
     if (templateInfo.file && templateInfo.format) {
       setLoadingModel(true)
       const loader = new GLTFLoader()
@@ -96,7 +102,31 @@ export default function CharacterEditor(props: any) {
             setScene(vrm.scene)
             setModel(vrm)
           // })
-        })
+          return vrm;
+        }).then((modelGltf) => {
+          loader.loadAsync(templateInfo.animation).then((animGltf) => {
+            // modelGltf and animGltf are both gltf files
+            // get the Idle animation from the model in animGltf
+            // and apply the Idle animation to modelGltf
+            modelMixer = new AnimationMixer(modelGltf.scene);
+            (window as any).modelMixers = [];
+            (window as any).modelMixers.push(modelMixer);
+            console.log("Loading Animation")
+            const idleAnimation = animGltf.animations[0]
+            console.log("idleAnimation is", idleAnimation);
+            timer = setInterval(() => {
+              (window as any).modelMixers.forEach((mixer) => {
+                mixer.update(1/30);
+              });
+              }, 1000/30);
+            modelMixer.clipAction(idleAnimation).play();
+            console.log("Playing on avatar", idleAnimation);
+          })
+        });
+        return () => {
+          clearInterval(timer);
+          modelMixer = null;
+        }
     }
   }, [templateInfo.file])
 
@@ -127,18 +157,6 @@ export default function CharacterEditor(props: any) {
               setCategory={setCategory}
               avatar = {avatar}
               setAvatar={setAvatar}
-              // hair={hair}
-              // setHair={setHair}
-              // face={face}
-              // setFace={setFace}
-              // tops={tops}
-              // setTops={setTops}
-              // arms={arms}
-              // setArms={setArms}
-              // shoes={shoes}
-              // setShoes={setShoes}
-              // legs={legs}
-              // setLegs={setLegs}
               setTemplate={setTemplate}
               template={template}
               setTemplateInfo={setTemplateInfo}

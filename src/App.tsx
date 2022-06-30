@@ -42,7 +42,7 @@ export default function ICApp() {
   const [alertTitle, setAlertTitle] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [principalId, setPrincipalId] = useState(false);
-  const [mintTraits, setMintTraits] = useState({ hair: null, face: null, tops: null, arms: null, legs: null, shoes: null })
+  const [mintTraits, setMintTraits] = useState({ neck: null, head: null, chest: null, body: null, legs: null, hand: null, waist: null, foot: null })
   const [PreviewCanvas, setPreviewCanvas] = useState(null)
 
   const handleConnect = (principalId) => {
