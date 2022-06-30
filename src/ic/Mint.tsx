@@ -93,7 +93,7 @@ export function Mint({ onSuccess }) {
 
     setMintingProgress(35 / 100)
 
-    const { hair, face, tops, arms, shoes, legs }: any = sceneService.getTraits();
+    const { neck, head, waist, chest, hand, foot }: any = sceneService.getTraits();
 
     const agent = (window as any).ic.plug.agent;
 
@@ -129,28 +129,28 @@ export function Mint({ onSuccess }) {
       animation_url: actualModelUrl,
       attributes: [
         {
-          trait_type: "Hair",
-          value: hair?.traitInfo ? hair?.traitInfo?.name : "None"
+          trait_type: "Neck",
+          value: neck?.traitInfo ? neck?.traitInfo?.name : "None"
         },
         {
-          trait_type: "Face",
-          value: face?.traitInfo ? face?.traitInfo?.name : "None"
+          trait_type: "Head",
+          value: head?.traitInfo ? head?.traitInfo?.name : "None"
         },
         {
-          trait_type: "Tops",
-          value: tops?.traitInfo ? tops?.traitInfo?.name : "None"
+          trait_type: "Chest",
+          value: chest?.traitInfo ? chest?.traitInfo?.name : "None"
         },
         {
-          trait_type: "Arms",
-          value: arms?.traitInfo ? arms?.traitInfo?.name : "None"
+          trait_type: "Hand",
+          value: hand?.traitInfo ? hand?.traitInfo?.name : "None"
         },
         {
-          trait_type: "Legs",
-          value: legs?.traitInfo ? legs?.traitInfo?.name : "None"
+          trait_type: "Waist",
+          value: waist?.traitInfo ? waist?.traitInfo?.name : "None"
         },
         {
-          trait_type: "Shoes",
-          value: shoes?.traitInfo ? shoes?.traitInfo?.name : "None"
+          trait_type: "Foot",
+          value: foot?.traitInfo ? foot?.traitInfo?.name : "None"
         }
       ]
     };
