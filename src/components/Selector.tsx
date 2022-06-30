@@ -83,10 +83,10 @@ export default function Selector(props) {
   React.useEffect(() => {
     if (!scene) return
     if (category) {
-      if (category === "body") {
+      if (category === "base") {
         for (const template of templates) {
           setCollection(templates)
-          setTraitName("body")
+          setTraitName("base")
         }
       }
       apiService.fetchTraitsByCategory(category).then((traits) => {
@@ -101,7 +101,7 @@ export default function Selector(props) {
   React.useEffect(() => {
     if (!scene) return
     async function _get() {
-      const categories = ["neck", "chest", "waist", "foot"]
+      // const categories = ["neck", "chest", "waist", "foot"]
       if (!loaded) {
         setTempInfo("1")
         if (scene && templateInfo) {
@@ -130,6 +130,7 @@ export default function Selector(props) {
 
   const setTempInfo = (id) => {
     apiService.fetchTemplate(id).then((res) => {
+      console.log("res is", res)
       setTemplateInfo(res)
     })
   }
@@ -150,6 +151,16 @@ export default function Selector(props) {
         if (traitName === "chest") {
           if (avatar.chest) {
             scene.remove(avatar.chest.model)
+          }
+        }
+        if (traitName === "body") {
+          if (avatar.body) {
+            scene.remove(avatar.body.model)
+          }
+        }
+        if (traitName === "legs") {
+          if (avatar.legs) {
+            scene.remove(avatar.legs.model)
           }
         }
         if (traitName === "hand") {
@@ -245,6 +256,30 @@ export default function Selector(props) {
                 scene.remove(avatar.chest.model)
               }
             }
+            if (traitName === "body") {
+              setAvatar({
+                ...avatar,
+                body: {
+                  traitInfo: trait,
+                  model: vrm.scene,
+                }
+              })
+              if (avatar.body) {
+                scene.remove(avatar.body.model)
+              }
+            }
+            if (traitName === "legs") {
+              setAvatar({
+                ...avatar,
+                legs: {
+                  traitInfo: trait,
+                  model: vrm.scene,
+                }
+              })
+              if (avatar.legs) {
+                scene.remove(avatar.legs.model)
+              }
+            }
             if (traitName === "hand") {
               setAvatar({
                 ...avatar,
@@ -291,21 +326,30 @@ export default function Selector(props) {
               // get the Idle animation from the model in animGltf
               // and apply the Idle animation to modelGltf
               modelMixer = new AnimationMixer(modelGltf.scene);
-              console.log("Loading Animation")
+              (window as any).modelMixers.push(modelMixer);
+
+              (window as any).modelMixers.forEach((mixer) => {
+                mixer.setTime(0);
+              });
+
               const idleAnimation = animGltf.animations[0]
-              console.log("idleAnimation is", idleAnimation);
-              timer = setTimeout(() => {
-                modelMixer.update(1 / 30);
-              }, 1000 / 30)
               modelMixer.clipAction(idleAnimation).play();
+
               console.log("Playing")
               console.log(modelGltf.scene);
-              modelGltf.scene.position.set(0, 0, 0);
             })
           });
         return () => {
-          clearInterval(timer)
+          // remove modelMixer from (window as any).modelMixers array
+          (window as any).modelMixers.forEach((mixer, index) => {
+            if (mixer === modelMixer) {
+              (window as any).modelMixers.splice(index, 1)
+            }
+          }
+          )
+
           modelMixer = null;
+
         }
         // })
       }
@@ -353,7 +397,7 @@ export default function Selector(props) {
                         className={`selector-button coll-${traitName} ${selectValue === item?.id ? "active" : ""
                           }`}
                         onClick={() => {
-                          if (category === "body") {
+                          if (category === "base") {
                             setLoaded(true)
                             setTempInfo(item.id)
                           }

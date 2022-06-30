@@ -1,5 +1,41 @@
 export default [
     {
+      "trait": "body",
+      "type": "mesh",
+      "collection": [
+        {
+          "id": "body-divine_robe",
+          "name": "Divine Robe",
+          "directory": "body/Divine_Robe/divine_robe.glb",
+          "thumbnail": "body/Divine_Robe/divine_robe.jpg"
+        },
+        {
+          "id": "body-linen_robe",
+          "name": "Linen Robe",
+          "directory": "body/Linen_Robe/linen_robe.glb",
+          "thumbnail": "body/Linen_Robe/linen_robe.jpg"
+        },
+        {
+          "id": "body-robe",
+          "name": "Robe",
+          "directory": "body/Robe/robe.glb",
+          "thumbnail": "body/Robe/robe.jpg"
+        },
+        {
+          "id": "body-shirt",
+          "name": "Shirt",
+          "directory": "body/Shirt/shirt.glb",
+          "thumbnail": "body/Shirt/shirt.jpg"
+        },
+        {
+          "id": "body-silk_robe",
+          "name": "Silk Robe",
+          "directory": "body/Silk_Robe/silk_robe.glb",
+          "thumbnail": "body/Silk_Robe/silk_robe.jpg"
+        }
+      ]
+    },
+    {
       "trait": "chest",
       "type": "mesh",
       "collection": [
@@ -14,12 +50,6 @@ export default [
           "name": "Demon Husk",
           "directory": "chest/Demon_Husk/demon_husk.glb",
           "thumbnail": "chest/Demon_Husk/demon_husk.jpg"
-        },
-        {
-          "id": "chest-divine_robe",
-          "name": "Divine Robe",
-          "directory": "chest/Divine_Robe/divine_robe.glb",
-          "thumbnail": "chest/Divine_Robe/divine_robe.jpg"
         },
         {
           "id": "chest-dragonskin_armor",
@@ -46,12 +76,6 @@ export default [
           "thumbnail": "chest/Leather_Armor/leather_armor.jpg"
         },
         {
-          "id": "chest-linen_robe",
-          "name": "Linen Robe",
-          "directory": "chest/Linen_Robe/linen_robe.glb",
-          "thumbnail": "chest/Linen_Robe/linen_robe.jpg"
-        },
-        {
           "id": "chest-ornate_chestplate",
           "name": "Ornate Chestplate",
           "directory": "chest/Ornate_Chestplate/ornate_chestplate.glb",
@@ -68,24 +92,6 @@ export default [
           "name": "Ring Mail",
           "directory": "chest/Ring_Mail/ring_mail.glb",
           "thumbnail": "chest/Ring_Mail/ring_mail.jpg"
-        },
-        {
-          "id": "chest-robe",
-          "name": "Robe",
-          "directory": "chest/Robe/robe.glb",
-          "thumbnail": "chest/Robe/robe.jpg"
-        },
-        {
-          "id": "chest-shirt",
-          "name": "Shirt",
-          "directory": "chest/Shirt/shirt.glb",
-          "thumbnail": "chest/Shirt/shirt.jpg"
-        },
-        {
-          "id": "chest-silk_robe",
-          "name": "Silk Robe",
-          "directory": "chest/Silk_Robe/silk_robe.glb",
-          "thumbnail": "chest/Silk_Robe/silk_robe.jpg"
         },
         {
           "id": "chest-studded_leather_armor",
@@ -124,12 +130,6 @@ export default [
           "thumbnail": "foot/Dragonskin_Boots/dragonskin_boots.jpg"
         },
         {
-          "id": "foot-greaves",
-          "name": "Greaves",
-          "directory": "foot/Greaves/greaves.glb",
-          "thumbnail": "foot/Greaves/greaves.jpg"
-        },
-        {
           "id": "foot-hard_leather_boots",
           "name": "Hard Leather Boots",
           "directory": "foot/Hard_Leather_Boots/hard_leather_boots.glb",
@@ -142,12 +142,6 @@ export default [
           "thumbnail": "foot/Heavy_Boots/heavy_boots.jpg"
         },
         {
-          "id": "foot-holy_greaves",
-          "name": "Holy Greaves",
-          "directory": "foot/Holy_Greaves/holy_greaves.glb",
-          "thumbnail": "foot/Holy_Greaves/holy_greaves.jpg"
-        },
-        {
           "id": "foot-leather_boots",
           "name": "Leather Boots",
           "directory": "foot/Leather_Boots/leather_boots.glb",
@@ -158,12 +152,6 @@ export default [
           "name": "Linen Shoes",
           "directory": "foot/Linen_Shoes/linen_shoes.glb",
           "thumbnail": "foot/Linen_Shoes/linen_shoes.jpg"
-        },
-        {
-          "id": "foot-ornate_greaves",
-          "name": "Ornate Greaves",
-          "directory": "foot/Ornate_Greaves/ornate_greaves.glb",
-          "thumbnail": "foot/Ornate_Greaves/ornate_greaves.jpg"
         },
         {
           "id": "foot-shoes",
@@ -202,10 +190,10 @@ export default [
           "thumbnail": "hand/Chain_Gloves/chain_gloves.jpg"
         },
         {
-          "id": "hand-demon_hands",
-          "name": "Demon Hands",
-          "directory": "hand/Demons_Hands/demon_hands.glb",
-          "thumbnail": "hand/Demons_Hands/demon_hands.jpg"
+          "id": "hand-demons_hands",
+          "name": "Demons Hands",
+          "directory": "hand/Demons_Hands/demons_hands.glb",
+          "thumbnail": "hand/Demons_Hands/demons_hands.jpg"
         },
         {
           "id": "hand-divine_gloves",
@@ -216,8 +204,8 @@ export default [
         {
           "id": "hand-dragonscale_gloves",
           "name": "Dragonscale Gloves",
-          "directory": "hand/Dragonskin_Gloves/dragonscale_gloves.glb",
-          "thumbnail": "hand/Dragonskin_Gloves/dragonscale_gloves.jpg"
+          "directory": "hand/Dragonscale_Gloves/dragonscale_gloves.glb",
+          "thumbnail": "hand/Dragonscale_Gloves/dragonscale_gloves.jpg"
         },
         {
           "id": "hand-gauntlets",
@@ -232,10 +220,10 @@ export default [
           "thumbnail": "hand/Gloves/gloves.jpg"
         },
         {
-          "id": "hand-hard_leather_glove",
-          "name": "Hard Leather Glove",
-          "directory": "hand/Hard_Leather_Gloves/hard_leather_glove.glb",
-          "thumbnail": "hand/Hard_Leather_Gloves/hard_leather_glove.jpg"
+          "id": "hand-hard_leather_gloves",
+          "name": "Hard Leather Gloves",
+          "directory": "hand/Hard_Leather_Gloves/hard_leather_gloves.glb",
+          "thumbnail": "hand/Hard_Leather_Gloves/hard_leather_gloves.jpg"
         },
         {
           "id": "hand-heavy_gloves",
@@ -262,10 +250,10 @@ export default [
           "thumbnail": "hand/Linen_Gloves/linen_gloves.jpg"
         },
         {
-          "id": "hand-ornate_gloves",
-          "name": "Ornate Gloves",
-          "directory": "hand/Ornate_Gauntlets/ornate_gloves.glb",
-          "thumbnail": "hand/Ornate_Gauntlets/ornate_gloves.jpg"
+          "id": "hand-ornate_gauntlets",
+          "name": "Ornate Gauntlets",
+          "directory": "hand/Ornate_Gauntlets/ornate_gauntlets.glb",
+          "thumbnail": "hand/Ornate_Gauntlets/ornate_gauntlets.jpg"
         },
         {
           "id": "hand-silk_gloves",
@@ -380,6 +368,30 @@ export default [
           "name": "War Cap",
           "directory": "head/War_Cap/war_cap.glb",
           "thumbnail": "head/War_Cap/war_cap.jpg"
+        }
+      ]
+    },
+    {
+      "trait": "legs",
+      "type": "mesh",
+      "collection": [
+        {
+          "id": "legs-greaves",
+          "name": "Greaves",
+          "directory": "legs/Greaves/greaves.glb",
+          "thumbnail": "legs/Greaves/greaves.jpg"
+        },
+        {
+          "id": "legs-holy_greaves",
+          "name": "Holy Greaves",
+          "directory": "legs/Holy_Greaves/holy_greaves.glb",
+          "thumbnail": "legs/Holy_Greaves/holy_greaves.jpg"
+        },
+        {
+          "id": "legs-ornate_greaves",
+          "name": "Ornate Greaves",
+          "directory": "legs/Ornate_Greaves/ornate_greaves.glb",
+          "thumbnail": "legs/Ornate_Greaves/ornate_greaves.jpg"
         }
       ]
     },

@@ -49,10 +49,10 @@ export default function Editor(props: any) {
           <br />
           Skin Tone
         </div>
-        <div onClick={() => setCategory('body')} style={category && category === "body" ? selectorButton : selectorButtonActive}>
+        <div onClick={() => setCategory('base')} style={category && category === "base" ? selectorButton : selectorButtonActive}>
           <Avatar style={selectorButtonIcon} src={'/head.png'} />
           <br />
-          Body
+          Base
         </div>
         <div onClick={() => setCategory('head')} style={category && category === "head" ? selectorButton : selectorButtonActive}>
           <Avatar style={selectorButtonIcon} src={'/head.png'} />
@@ -69,6 +69,11 @@ export default function Editor(props: any) {
           <br />
           Chest
         </div>
+        <div onClick={() => setCategory('body')} style={category && category === "body" ? selectorButton : selectorButtonActive}>
+          <Avatar style={selectorButtonIcon} src={'/body.png'} />
+          <br />
+          Body
+        </div>
         <div onClick={() => setCategory('waist')} style={category && category === "chest" ? selectorButton : selectorButtonActive}>
           <Avatar style={selectorButtonIcon} src={'/waist.png'} />
           <br />
@@ -77,12 +82,17 @@ export default function Editor(props: any) {
         <div onClick={() => setCategory('hand')} style={category && category === "hand" ? selectorButton : selectorButtonActive} >
           <Avatar style={selectorButtonIcon} src={'/hand.png'} />
           <br />
-          Hand
+          Hands
+        </div>
+        <div onClick={() => setCategory('legs')} style={category && category === "legs" ? selectorButton : selectorButtonActive} >
+          <Avatar style={selectorButtonIcon} src={'/legs.png'} />
+          <br />
+          Legs
         </div>
         <div onClick={() => setCategory('foot')} style={category && category === "foot" ? selectorButton : selectorButtonActive} >
           <Avatar style={selectorButtonIcon} src={'/foot.png'} />
           <br />
-          Foot
+          Feet
         </div>
       </Stack>
     </div>

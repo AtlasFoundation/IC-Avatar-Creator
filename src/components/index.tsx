@@ -12,6 +12,8 @@ interface Avatar{
   neck:{},
   head:{},
   chest:{},
+  body:{},
+  legs:{},
   hand:{},
   foot:{},
   waist:{}
@@ -50,6 +52,8 @@ export default function CharacterEditor(props: any) {
     neck:{},
     head:{},
     chest:{},
+    body:{},
+    legs:{},
     hand:{},
     foot:{},
     waist:{}
@@ -77,7 +81,7 @@ export default function CharacterEditor(props: any) {
   }, [model])
 
   useEffect(() => {
-    let timer, modelMixer = null;
+    let timer, modelMixer;
     if (templateInfo.file && templateInfo.format) {
       setLoadingModel(true)
       const loader = new GLTFLoader()
@@ -105,18 +109,22 @@ export default function CharacterEditor(props: any) {
             // get the Idle animation from the model in animGltf
             // and apply the Idle animation to modelGltf
             modelMixer = new AnimationMixer(modelGltf.scene);
+            (window as any).modelMixers = [];
+            (window as any).modelMixers.push(modelMixer);
             console.log("Loading Animation")
             const idleAnimation = animGltf.animations[0]
             console.log("idleAnimation is", idleAnimation);
-            timer = setTimeout(() => {
-              modelMixer.update(1/30);
-            }, 1000/30)
+            timer = setInterval(() => {
+              (window as any).modelMixers.forEach((mixer) => {
+                mixer.update(1/30);
+              });
+              }, 1000/30);
             modelMixer.clipAction(idleAnimation).play();
-            console.log("Playing")
+            console.log("Playing on avatar", idleAnimation);
           })
         });
         return () => {
-          // clearInterval(timer)
+          clearInterval(timer);
           modelMixer = null;
         }
     }

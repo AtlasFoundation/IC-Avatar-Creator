@@ -93,7 +93,7 @@ export function Mint({ onSuccess }) {
 
     setMintingProgress(35 / 100)
 
-    const { neck, head, waist, chest, hand, foot }: any = sceneService.getTraits();
+    const { neck, head, waist, chest, body, legs, hand, foot }: any = sceneService.getTraits();
 
     const agent = (window as any).ic.plug.agent;
 
@@ -139,6 +139,14 @@ export function Mint({ onSuccess }) {
         {
           trait_type: "Chest",
           value: chest?.traitInfo ? chest?.traitInfo?.name : "None"
+        },
+        {
+          trait_type: "Body",
+          value: body?.traitInfo ? body?.traitInfo?.name : "None"
+        },
+        {
+          trait_type: "Legs",
+          value: legs?.traitInfo ? legs?.traitInfo?.name : "None"
         },
         {
           trait_type: "Hand",
