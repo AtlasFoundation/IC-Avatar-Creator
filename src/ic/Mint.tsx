@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react"
 import './dabStuff.css';
 import dip721v2_idl from '@psychedelic/dab-js/dist/idls/dip_721_v2.did';
-import { sceneService } from "../services";
+import { sceneService } from "atlasavatarcreator/src/services";
 import { createActor, idlFactory } from './interfaces/motokoStorage/src/declarations/storage';
-import LoadingOverlayCircularStatic from "../components/LoadingOverlay";
+import LoadingOverlayCircularStatic from "atlasavatarcreator/src/components/LoadingOverlay";
 
 
 let storageActor;

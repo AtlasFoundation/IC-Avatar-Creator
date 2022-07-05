@@ -8,9 +8,8 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { PlugWallet } from './ic/PlugWallet';
 import { Mint } from "./ic/Mint";
-import CharacterEditor from "./components/index";
-import { sceneService } from "./services/scene";
-import defaultTemplates from "./data/base_models";
+import CharacterEditor from "atlasavatarcreator/src/components/index";
+import defaultTemplates from "atlasavatarcreator/src/data/base_models";
 
 import "./ic/style.scss";
 
