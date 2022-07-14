@@ -6,8 +6,8 @@ body {
 
 .connect-mint-wrap {
     position: absolute;
-    right: 5px;
-    top: 28px;
+    right: 19px;
+    top: 25px;
     width: 145px;
     z-index: 10;
     button {
@@ -54,4 +54,8 @@ body {
     left: 0;
     background: rgba(16,16,16,0.8);
     z-index: 100;
+}
+
+.css-ol7wxs-MuiTypography-root{
+    color: white !important;
 }

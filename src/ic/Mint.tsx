@@ -117,6 +117,11 @@ export function Mint({ onSuccess }) {
     setMintingProgress(50 / 100)
 
     console.log("uploading model")
+
+    console.log(modelUrl);
+    console.log(model);
+    
+    
     await upload(model, modelUrl);
 
     setMintingProgress(99 / 100)
@@ -194,9 +199,11 @@ export function Mint({ onSuccess }) {
     <Fragment>
       <div className='buttonContainer'>
       {loadingModel && (
-        <LoadingOverlayCircularStatic
+        <div className="overlay">
+          <LoadingOverlayCircularStatic
           loadingModelProgress={loadingModelProgress}
         />
+        </div>
       )}
         <button id='mintNFT' onClick={mintNFT} className='mintButton'>Mint</button>
       </div>
