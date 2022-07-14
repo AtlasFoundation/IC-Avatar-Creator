@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react"
 import './dabStuff.css';
 import dip721v2_idl from '@psychedelic/dab-js/dist/idls/dip_721_v2.did';
-import { sceneService } from "atlasavatarcreator/src/services";
+import { sceneService } from "avatarcreator/src";
 import { createActor, idlFactory } from './interfaces/motokoStorage/src/declarations/storage';
-import LoadingOverlayCircularStatic from "atlasavatarcreator/src/components/LoadingOverlay";
+import {LoadingOverlayCircularStatic} from "avatarcreator/src";
 
 
 let storageActor;
@@ -117,6 +117,11 @@ export function Mint({ onSuccess }) {
     setMintingProgress(50 / 100)
 
     console.log("uploading model")
+
+    console.log(modelUrl);
+    console.log(model);
+    
+    
     await upload(model, modelUrl);
 
     setMintingProgress(99 / 100)
@@ -194,9 +199,11 @@ export function Mint({ onSuccess }) {
     <Fragment>
       <div className='buttonContainer'>
       {loadingModel && (
-        <LoadingOverlayCircularStatic
+        <div className="overlay">
+          <LoadingOverlayCircularStatic
           loadingModelProgress={loadingModelProgress}
         />
+        </div>
       )}
         <button id='mintNFT' onClick={mintNFT} className='mintButton'>Mint</button>
       </div>
