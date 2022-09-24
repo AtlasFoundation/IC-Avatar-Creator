@@ -10,6 +10,7 @@ import { PlugWallet } from './ic/PlugWallet';
 import { Mint } from "./ic/Mint";
 import CharacterEditor from "atlasavatarcreator/src/components/index";
 import defaultTemplates from "atlasavatarcreator/src/data/base_models";
+import Inventory from "./inventory";
 
 import "./ic/style.scss";
 
@@ -63,7 +64,7 @@ export default function ICApp() {
         onFail={handleFail}
       >
         <Mint onSuccess={(callback) => { setShowAlert(true); setAlertTitle("Mint Successful. View here: " + callback); }} />
-      </PlugWallet>
+        </PlugWallet>
       </div>
       {showAlert && (
         <Alert
@@ -87,6 +88,7 @@ export default function ICApp() {
           {alertTitle}
         </Alert>
       )}
+      <Inventory />
     </>
   );
 }

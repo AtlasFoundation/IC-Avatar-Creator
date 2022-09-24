@@ -8,3 +8,4 @@ templates/baller
 .dfx
 yarn.lock
 package-lock.json
+yarn-error.log
