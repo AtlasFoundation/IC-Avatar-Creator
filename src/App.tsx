@@ -1,15 +1,14 @@
-import CloseIcon from "@mui/icons-material/Close";
-import GavelIcon from "@mui/icons-material/Gavel";
 import { createTheme, Modal, Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { PlugWallet } from './ic/PlugWallet';
+import { RiCloseFill } from "react-icons/ri";
+import { PlugWallet } from "./ic/PlugWallet";
 import { Mint } from "./ic/Mint";
-import CharacterEditor from "atlasavatarcreator/src/components/index";
-import defaultTemplates from "atlasavatarcreator/src/data/base_models";
+import { CharacterEditor } from "react-generatoravatar/src";
+import defaultTemplates from "react-generatoravatar/src/data/base_models";
 import Inventory from "./inventory";
 
 import "./ic/style.scss";
@@ -80,7 +79,7 @@ export default function ICApp() {
                 setShowAlert(false);
               }}
             >
-              <CloseIcon fontSize="inherit" />
+              <RiCloseFill />
             </IconButton>
           }
           sx={{ mb: 2 }}
