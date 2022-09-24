@@ -1,7 +1,7 @@
 // import { AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import React, { useEffect, useState } from "react"
 import { InventoryService } from "./services/InventoryService"
-import AvatarInventory from "react-createavatar-inventory";
+import AvatarInventory from "react-avatargenerator-inventory"
 
 export const Inventory = (): any => {
   const [svgImage, setSvgImage] = useState([])

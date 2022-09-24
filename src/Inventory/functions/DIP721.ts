@@ -20,14 +20,15 @@ export const getMyDIP721Tokens = () => {
 
     const { ok: myTokens } = await nftActor?.tokens(walletAddress)
     let myNFTs = []
-    for (let i = 0; i < myTokens.length; i++) {
-      const NFT = await nftActor?.getMergedSVG(myTokens[i])
-      myNFTs[i] = {
-        slot: i,
-        image: `data:image/svg+xml;utf8,${NFT}`,
-        name: "ICPuppies",
+    if (myTokens)
+      for (let i = 0; i < myTokens.length; i++) {
+        const NFT = await nftActor?.getMergedSVG(myTokens[i])
+        myNFTs[i] = {
+          slot: i,
+          image: `data:image/svg+xml;utf8,${NFT}`,
+          name: "ICPuppies",
+        }
       }
-    }
 
     resolve(myNFTs)
   })
