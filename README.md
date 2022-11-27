@@ -1,9 +1,9 @@
 # Avatar Creator For Internet Computer
 We created this for the Supernova Hackathon, [read about our submission here](https://devpost.com/software/open-character-creator-minter)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-An open, collaborative and evolving character creator project for the open metaverse.
+
+## An open, collaborative and evolving character creator project for the open metaverse.
+
+![Screenshot 2022-07-11 032822](https://user-images.githubusercontent.com/64185677/204121337-be2fc177-30d3-41f3-ac87-54a017721e52.png)
 
 Want to contribute? Please check out the [issues](https://github.com/AtlasFoundation/AvatarCreator/issues), or submit a pull request.
 
@@ -46,3 +46,7 @@ You can do so from the command line:
 npm install @psychedelic/dab-js@latest
 ```
 Find more details about [installing dab jshere](https://github.com/Psychedelic/DAB-js/packages/987540)
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
